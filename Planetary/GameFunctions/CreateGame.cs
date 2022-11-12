@@ -20,7 +20,7 @@ namespace Planetary.GameFunctions.CreateGame
         private readonly ILogger<CreateGame> _logger;
 
 
-        private record CreateGameRequest(string UserId, string CharacterName);
+        private record CreateGameRequest(string UserId, string CallSign, string FirstName, string LastName);
 
         public CreateGame(ILogger<CreateGame> log)
         {
@@ -50,7 +50,9 @@ namespace Planetary.GameFunctions.CreateGame
                 var game = new Game
                 {
                     Id = Guid.NewGuid(),
-                    CharacterName = input.CharacterName,
+                    CallSign = input.CallSign,
+                    FirstName = input.FirstName,
+                    LastName = input.LastName,
                     UserId = input.UserId
                 };
 

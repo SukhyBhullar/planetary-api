@@ -9,6 +9,9 @@ namespace Planetary.Domain
 {
     public class Game : Identified
     {
-        public string CharacterName { get; set; }
+        public string CallSign { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
     }
 }
