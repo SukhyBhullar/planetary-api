@@ -25,7 +25,6 @@ namespace Planetary.PlaceFunctions
             _logger = log;
         }
 
-        private const string zeros = "00000000-0000-0000-0000-000000000000";
 
         [FunctionName("GetDefaultPlace")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
@@ -35,8 +34,8 @@ namespace Planetary.PlaceFunctions
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             [CosmosDB(Constants.DATABASE_NAME, Constants.DEFAULT_PLACE_CONTAINER,
                 ConnectionStringSetting = Constants.CONNECTION_STRING,
-                 Id = zeros,
-                PartitionKey = zeros)]
+                 Id = DefaultPlace.DefaultPlaceId,
+                PartitionKey = DefaultPlace.DefaultPlaceId)]
                 DefaultPlace place)
         {
             _logger.LogInformation("GetDefaultPlace called");

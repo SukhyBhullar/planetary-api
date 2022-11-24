@@ -37,7 +37,12 @@ namespace Planetary.GameFunctions.CreateGame
             [CosmosDB(
                 databaseName: Constants.DATABASE_NAME,
                 collectionName: Constants.GAME_CONTAINER,
-                ConnectionStringSetting = Constants.CONNECTION_STRING)] IAsyncCollector<object> games)
+                ConnectionStringSetting = Constants.CONNECTION_STRING)] IAsyncCollector<object> games,
+            [CosmosDB(Constants.DATABASE_NAME, Constants.DEFAULT_PLACE_CONTAINER,
+                ConnectionStringSetting = Constants.CONNECTION_STRING,
+                 Id = DefaultPlace.DefaultPlaceId,
+                PartitionKey = DefaultPlace.DefaultPlaceId)]
+                DefaultPlace place)
         {
             _logger.LogInformation("CreateGame called");
 
@@ -53,7 +58,8 @@ namespace Planetary.GameFunctions.CreateGame
                     CallSign = input.CallSign,
                     FirstName = input.FirstName,
                     LastName = input.LastName,
-                    UserId = input.UserId
+                    UserId = input.UserId,
+                    CurrentPlace = place.Place
                 };
 
                 await games.AddAsync(game);
